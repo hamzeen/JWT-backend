@@ -19,4 +19,7 @@ $/>db.employees.insert({empName:"Dinesh", age:"26", salary:"50000"})
 
 #search
 $/>db.find({empName: "Dinesh"})
+
+# size of a collection
+$/>db.collectionName.dataSize()
 ```
