@@ -23,3 +23,21 @@ $/>db.find({empName: "Dinesh"})
 # size of a collection
 $/>db.collectionName.dataSize()
 ```
+### Connect from a NodeJS app
+```js
+var mongoose = require('mongoose');
+
+mongoose.connect('mongodb://localhost/test', {useNewUrlParser: true,  useUnifiedTopology: true});
+
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', function callback () {
+    console.log("successfully connected");
+});
+```
+
+### Sample Requests
+  - [POST] http://localhost:4201/api/v1/users body: { "name": "arthur", "password": "andreas"}
+  - [POST] http://localhost:4201/api/v1/login body: { "name": "arthur", "password": "andreas"}
+  - [GET]  http://localhost:4201/api/v1/users header: { "authorization", "Bearer signedjwt"}
+
