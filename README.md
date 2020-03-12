@@ -35,3 +35,9 @@ db.once('open', function callback () {
     console.log("successfully connected");
 });
 ```
+
+### Sample Requests
+  - [POST] http://localhost:4201/api/v1/users body: { "name": "arthur", "password": "andreas"}
+  - [POST] http://localhost:4201/api/v1/login body: { "name": "arthur", "password": "andreas"}
+  - [GET]  http://localhost:4201/api/v1/users header: { "authorization", "Bearer signedjwt"}
+
