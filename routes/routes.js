@@ -1,4 +1,4 @@
-// index.js - index route module
+// wiki.js - Wiki route module
 const controller = require('../controllers/users');
 const validateToken = require('../utils').validateToken;
 

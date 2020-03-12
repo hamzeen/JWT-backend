@@ -1,9 +1,9 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-
-const connUri = process.env.MONGO_LOCAL_CONN_URL;
 const User = require('../models/users');
+
+const connUri = `${process.env.MONGO_DEV_CONN_URL}/${process.env.MONGO_DB_NAME}`;
 
 module.exports = {
   add: (req, res) => {
@@ -13,7 +13,6 @@ module.exports = {
       if (!err) {
         const { name, password } = req.body;
         const user = new User({ name, password}); // document = instance of a model
-        // TODO: We can hash the password here as well before we insert
         user.save((err, user) => {
           if (!err) {
             result.status = status;
@@ -24,15 +23,13 @@ module.exports = {
             result.error = err;
           }
           res.status(status).send(result);
-          // Close the connection after saving
-          mongoose.connection.close();
+          mongoose.connection.close(); // close the connection after saving
         });
       } else {
         status = 500;
         result.status = status;
         result.error = err;
         res.status(status).send(result);
-
         mongoose.connection.close();
       }
     });
@@ -54,7 +51,7 @@ module.exports = {
                 status = 200;
                 // Create a token
                 const payload = { user: user.name };
-                const options = { expiresIn: '2d', issuer: 'https://scotch.io' };
+                const options = { expiresIn: '2d', issuer: 'https://hamzeen.github.io' };
                 const secret = process.env.JWT_SECRET;
                 const token = jwt.sign(payload, secret, options);
 
@@ -99,7 +96,7 @@ module.exports = {
       let result = {};
       let status = 200;
       if (!err) {
-        const payload = req.decoded;
+        const payload = req.decoded; // console.log("LC JWT PAYLOAD:: ", payload);
         if (payload && payload.user === 'admin') {
           User.find({}, (err, users) => {
             if (!err) {
@@ -118,7 +115,6 @@ module.exports = {
           result.status = status;
           result.error = `Authentication error`;
           res.status(status).send(result);
-
           mongoose.connection.close();
         }
       } else {
@@ -126,7 +122,6 @@ module.exports = {
         result.status = status;
         result.error = err;
         res.status(status).send(result);
-
         mongoose.connection.close();
       }
     });

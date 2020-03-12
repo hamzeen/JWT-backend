@@ -4,14 +4,15 @@
   "description": "Accompanying repository for scotch article on auth with JWTs and node",
   "main": "index.js",
   "scripts": {
-    "dev": "cross-env NODE_ENV=development nodemon index.js"
+    "dev": "cross-env NODE_ENV=development nodemon index.js",
+    "prod": "cross-env NODE_ENV=production nodemon index.js"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/emabishi/node-jwt.git"
   },
   "keywords": [],
-  "author": "",
+  "author": "Hamzeen. H.",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/emabishi/node-jwt/issues"
