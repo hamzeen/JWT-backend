@@ -23,3 +23,15 @@ $/>db.find({empName: "Dinesh"})
 # size of a collection
 $/>db.collectionName.dataSize()
 ```
+### Connect from a NodeJS app
+```js
+var mongoose = require('mongoose');
+
+mongoose.connect('mongodb://localhost/test', {useNewUrlParser: true,  useUnifiedTopology: true});
+
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', function callback () {
+    console.log("successfully connected");
+});
+```
