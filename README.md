@@ -10,3 +10,13 @@ Accompanying repository for scotch article on auth with JWTs and node
   - https://dzone.com/articles/top-10-most-common-commands-for-beginners
   - setting up auth/roles: https://medium.com/mongoaudit/how-to-enable-authentication-on-mongodb-b9e8a924efac
   
+```shell
+# creates testDB if not found
+$/>use testDB
+
+# insert a record => creates a collection called employees and inserts 'the new document'
+$/>db.employees.insert({empName:"Dinesh", age:"26", salary:"50000"})
+
+#search
+$/>db.find({empName: "Dinesh"})
+```
