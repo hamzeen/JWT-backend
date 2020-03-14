@@ -21,6 +21,8 @@ $/>show collections
 $/>db.users.find()
 # pretty print
 $/>db.users.find().pretty()
+# clear a collection (deletes all docs)
+$/>db.users.remove({});
 
 # insert a record => creates a collection called employees and inserts 'the new document'
 $/>db.employees.insert({empName:"Dinesh", age:"26", salary:"50000"})
