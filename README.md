@@ -11,8 +11,18 @@ Accompanying repository for scotch article on auth with JWTs and node
   - setting up auth/roles: https://medium.com/mongoaudit/how-to-enable-authentication-on-mongodb-b9e8a924efac
   
 ```shell
-# creates testDB if not found
-$/>use testDB
+# list dbs
+$/>show dbs
+# creates if the db is not found
+$/>use opruimen
+#show collections
+$/>show collections
+# show all records in a collection
+$/>db.users.find()
+# pretty print
+$/>db.users.find().pretty()
+# clear a collection (deletes all docs)
+$/>db.users.remove({});
 
 # insert a record => creates a collection called employees and inserts 'the new document'
 $/>db.employees.insert({empName:"Dinesh", age:"26", salary:"50000"})
