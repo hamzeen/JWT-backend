@@ -12,7 +12,7 @@ module.exports = {
       let status = 201;
       if (!err) {
         const { name, password } = req.body;
-        const user = new User({ name, password}); // document = instance of a model
+        const user = new User({ _id: 1, name, password}); // document = instance of a model
         user.save((err, user) => {
           if (!err) {
             result.status = status;
@@ -41,6 +41,7 @@ module.exports = {
     mongoose.connect(connUri, { useNewUrlParser: true, useUnifiedTopology: true }, (err) => {
       let result = {};
       let status = 200;
+
       if(!err) {
 
         User.findOne({name}, (err, user) => {
@@ -48,7 +49,6 @@ module.exports = {
             // We could compare passwords in our model instead of below as well
             bcrypt.compare(password, user.password).then(match => {
               if (match) {
-                status = 200;
                 // Create a token
                 const payload = { user: user.name };
                 const options = { expiresIn: '2d', issuer: 'https://hamzeen.github.io' };
@@ -56,7 +56,7 @@ module.exports = {
                 const token = jwt.sign(payload, secret, options);
 
                 result.token = token;
-                result.status = status;
+                result.status = 200;
                 result.result = user;
               } else {
                 status = 401;
@@ -68,8 +68,8 @@ module.exports = {
               status = 500;
               result.status = status;
               result.error = err;
-              res.status(status).send(result);
 
+              res.status(status).send(result);
               mongoose.connection.close();
             });
           } else {
@@ -78,14 +78,12 @@ module.exports = {
             result.error = err;
             res.status(status).send(result);
           }
-        }).then(() => 
-          mongoose.connection.close());
+        }).then(() => mongoose.connection.close());
       } else {
         status = 500;
         result.status = status;
         result.error = err;
         res.status(status).send(result);
-
         mongoose.connection.close();
       }
     });

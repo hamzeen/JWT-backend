@@ -1,5 +1,7 @@
-// wiki.js - Wiki route module
+// routes.js -login.timeline routes module
+
 const controller = require('../controllers/users');
+const timelineControls = require('../controllers/timeline');
 const validateToken = require('../utils').validateToken;
 
 const express = require('express');
@@ -9,6 +11,11 @@ const router = express.Router();
 router.route('/users')
     .post(controller.add)
     .get(validateToken, controller.getAll);
+
+// Timeline routes
+router.route('/timeline')
+    .post(validateToken, timelineControls.updateEvents)
+    .get(validateToken,  timelineControls.getAllEvents);
 
 // Login route
 router.route('/login')

@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
 
 // JWT SECRET SIGN-KEY
-const secret = process.env.JWT_SECRET | 'HANZ';
+const secret = process.env.JWT_SECRET;
 const options = { expiresIn: '2d', issuer: 'https://hamzeen.github.io' };
 
 module.exports = {
@@ -23,7 +23,6 @@ module.exports = {
       } catch (err) {
         throw new Error(err);
       }
-
     } else {
       res.status(401).send({
         error: `Authentication error. Token required.`,

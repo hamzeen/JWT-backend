@@ -8,6 +8,11 @@ const stage = require('../config')[environment];
 const Schema = mongoose.Schema;
 
 const userSchema = new Schema({
+  _id: {
+    type: 'Number',
+    required: true,
+    unique: true
+  },
   name: {
     type: 'String',
     required: true,
@@ -18,23 +23,37 @@ const userSchema = new Schema({
     type: 'String',
     required: true,
     trim: true
+  },
+  timeline: {
+    events:[{
+      name: 'String',
+    }],
+    required: false
   }
 });
 
 // encrypt password before save
 userSchema.pre('save', function(next) {
   const user = this;
-  if(!user.isModified || !user.isNew) {
+  if (!user.isModified || !user.isNew) {
     next();
   } else {
-    bcrypt.hash(user.password, stage.saltingRounds, function(err, hash) {
-      if (err) {
-        console.log('Error hashing password for user', user.name);
-        next(err);
-      } else {
-        user.password = hash;
-        next();
+    user.constructor.countDocuments(function(err, data) {
+      if (!err) {
+        if (data > 0) {
+          user._id = data + 1;
+        }
       }
+
+      bcrypt.hash(user.password, stage.saltingRounds, function(err, hash) {
+        if (err) {
+          console.log('Error hashing password for user', user.name);
+          next(err);
+        } else {
+          user.password = hash;
+          next();
+        }
+      });
     });
   }
 });
