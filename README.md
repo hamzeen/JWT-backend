@@ -10,6 +10,19 @@ Accompanying repository for scotch article on auth with JWTs and node
   - https://dzone.com/articles/top-10-most-common-commands-for-beginners
   - setting up auth/roles: https://medium.com/mongoaudit/how-to-enable-authentication-on-mongodb-b9e8a924efac
   
+### Mongo: Start the service
+```
+cd mongodb/bin/mongo
+sudo mkdir -p /Users/hanz/data/db
+./mongod --dbpath=/Users/hanz/data/db
+./mongod
+./mongo
+```
+* hello world: https://www.dineshonjava.com/mongodb-hello-world-example/
+* unable to run: https://liuzhenglai.com/post/5f6fa44ca21e0635bcda536f
+* installation instructos: https://docs.mongodb.com/guides/server/install/
+
+### Commands: Mongo Shell  
 ```shell
 # list dbs
 $/>show dbs
